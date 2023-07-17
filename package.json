@@ -1,0 +1,15 @@
+{
+  "name": "basic_chat_app",
+  "version": "1.0.0",
+  "description": "Basic_Chat_App in node using web sockets",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Karan pal singh",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.7.1"
+  }
+}
