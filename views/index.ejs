@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+<body>
+   <h1>Chatting....Inside <%= name%></h1>
+   <input type="text" id="chatBox">
+   <button id="btn">Send</button>
+   <ul id="message_list"></ul>
+
+   <% for(let i=0;i<previousMessage.length;i++){%>
+<li><%=previousMessage[i].sender %> - <%=previousMessage[i].content %></li>
+  <% } %>
+
+
+   <script src="/socket.io/socket.io.js"></script>
+   <script >
+
+   var socket=io();
+   let input=document.getElementById('chatBox');
+   let mesgList=document.getElementById("message_list");
+   let send=document.getElementById("btn");
+
+
+   socket.emit("join_room",{
+      roomid:"<%= roomid %>"
+   })
+
+   send.addEventListener("click",()=>{
+      let mes=input.value;
+      
+      socket.emit("new_mes",{
+         message:mes,
+         roomid:"<%= roomid %>",
+         sender:"<%= user %>"
+
+      })
+      input.value=""
+   })
+   socket.on("mess_resvd",(data)=>{
+         let cre=document.createElement("li");
+         cre.textContent=data.sender+"-"+data.message;
+         mesgList.appendChild(cre)
+   })
+
+
+   </script>
+</body>
+</html>
